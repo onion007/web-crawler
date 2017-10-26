@@ -38,7 +38,7 @@ def getJpgList(html):
             index += 1
             gList.append(jpglink)
             print(index)
-    #        filename = 'jpg/%s_%s' % (match.group(1), index)
+    #        filename = 'jpg/%s_%s.jpg' % (match.group(1), index)
     #        urllib.urlretrieve(jpglink, filename)
     #        index += 1
 
