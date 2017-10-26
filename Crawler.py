@@ -29,12 +29,21 @@ class Crawler:
             self._domain = m.group(1)
 
     def _gethtml(self):
-        self._html = urllib.urlopen(self._url).read()
+        if '' == self._url:
+            self._html = ''
+        else:
+            self._html = urllib.urlopen(self._url).read()
 
     def _crawl(self):
+        if '' == self._url:
+            self._html = ''
+            return
         if '' == self._html:
             self._gethtml()
-        self.result[self._url] = re.findall(self._target_reg, self._html)
+        if '' == self._html:
+            self.result[self._url] = []
+        else:
+            self.result[self._url] = re.findall(self._target_reg, self._html)
 
     def next_page(self):
         if '' == self._html:
@@ -48,9 +57,9 @@ class Crawler:
                     self._url = n
                 else:
                     self._url = self._domain + n
-                self._html = ''
         else:
             self._url = ''
+        self._html = ''
 
     def run(self):
         self._gethtml()
