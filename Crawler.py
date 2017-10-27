@@ -35,7 +35,7 @@ class Crawler:
             print "gethtml: %s" % self._url
             self._html = urllib.urlopen(self._url).read()
 
-    def _crawl(self):
+    def crawl(self):
         if '' == self._url:
             self._html = ''
             return
@@ -66,7 +66,7 @@ class Crawler:
         self._html = ''
 
     def run(self):
-        self._crawl()
+        self.crawl()
         while '' != self._html:
             self.next_page()
-            self._crawl()
+            self.crawl()
