@@ -32,6 +32,7 @@ class Crawler:
         if '' == self._url:
             self._html = ''
         else:
+            print "gethtml: %s" % self._url
             self._html = urllib.urlopen(self._url).read()
 
     def _crawl(self):
@@ -51,7 +52,10 @@ class Crawler:
         if self._next_page_reg is not None:
             # TODO: use another method to do.
             next_pages = re.findall(self._next_page_reg, self._html)
-            for n in next_pages:
+            if 0 == len(next_pages):
+                self._url = ''
+            else:
+                n = next_pages[0]
                 # To fix the error link likes '/archive' => 'http://x.x.x/archive'
                 if n.startswith('http://'):
                     self._url = n
@@ -62,8 +66,7 @@ class Crawler:
         self._html = ''
 
     def run(self):
-        self._gethtml()
-        while '' == self._html:
-            self._crawl()
+        self._crawl()
+        while '' != self._html:
             self.next_page()
-            self._gethtml()
+            self._crawl()
