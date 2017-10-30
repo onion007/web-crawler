@@ -4,6 +4,7 @@
 import urllib
 import re
 import json
+import datetime
 
 
 class Crawler:
@@ -72,8 +73,6 @@ class Crawler:
             self.next_page()
             self.crawl()
 
-    def dump(self):
-        import datetime
-        fn = datetime.datetime.now().strftime('%Y%m%d%H%M%S') + '.data'
+    def dump(self, fn=datetime.datetime.now().strftime('%Y%m%d%H%M%S') + '.data'):
         with open(fn, 'w') as f:
             f.write(json.dumps(self.result))
